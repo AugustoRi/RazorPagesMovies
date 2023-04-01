@@ -41,6 +41,13 @@ namespace RazorPagesMovies.Pages.Movies
                     movies = movies.Where(f => f.Title.Contains(SearchInputContent));
                 }
 
+                if (!string.IsNullOrWhiteSpace(GenderMovie))
+                {
+                    movies = movies.Where(f => f.Gender.Contains(GenderMovie));
+                }
+
+                Genders = new SelectList(await _context.Movie.Select(o => o.Gender).Distinct().ToListAsync());
+
                 Movie = await movies.ToListAsync();
             }
         }
